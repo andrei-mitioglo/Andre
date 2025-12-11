@@ -1,0 +1,47 @@
+name: Run Unit Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Build and start services
+      run: |
+        docker compose up -d --build
+
+    - name: Wait for services to be ready
+      run: |
+        sleep 10
+
+    - name: Run Auth Service Tests
+      run: docker compose exec -T auth_service pytest auth_service/
+
+    - name: Run Product Service Tests
+      run: docker compose exec -T product_service pytest product_service/
+
+    - name: Run Cart Service Tests
+      run: docker compose exec -T cart_service pytest cart_service/
+
+    - name: Run Order Service Tests
+      run: docker compose exec -T order_service pytest order_service/
+
+    - name: Run Payment Service Tests
+      run: docker compose exec -T payment_service pytest payment_service/
+
+    - name: Run Notification Service Tests
+      run: docker compose exec -T notification_service pytest notification_service/
+
+    - name: Stop containers
+      if: always()
+      run: docker compose down

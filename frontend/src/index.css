@@ -1,0 +1,315 @@
+:root {
+  --main-accent: #8b5cf6;
+  --main-accent-hover: #7c3aed;
+  --secondary-accent: #06b6d4;
+  --bg-dark: #0f172a;
+  --bg-medium: #1e293b;
+  --bg-light: #334155;
+  --surface-color: #1e293b;
+  --text-main: #f1f5f9;
+  --text-muted: #94a3b8;
+  --error-color: #f43f5e;
+  --success-color: #10b981;
+  --highlight-bg: #374151;
+  --border-radius: 1rem;
+  --box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  --gradient-primary: linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%);
+  --gradient-dark: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', 'Roboto', system-ui, -apple-system, sans-serif;
+  background: var(--gradient-dark);
+  color: var(--text-main);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+}
+
+.wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Навигационная панель */
+.navigation-bar {
+  background: rgba(30, 41, 59, 0.95);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--box-shadow);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--bg-light);
+}
+
+.nav-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand-logo {
+  font-size: 1.75rem;
+  font-weight: 800;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-decoration: none;
+  letter-spacing: -0.5px;
+}
+
+.menu-links {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.menu-item {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  padding: 0.5rem 0;
+  border: none;
+}
+
+.menu-item:hover {
+  color: var(--main-accent);
+  transform: translateY(-2px);
+}
+
+/* Кнопки действий */
+.action-btn {
+  padding: 0.875rem 1.75rem;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.action-btn-main {
+  background: var(--gradient-primary);
+  color: white;
+  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+}
+
+.action-btn-main:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(139, 92, 246, 0.5);
+}
+
+.action-btn-alt {
+  background: var(--bg-light);
+  color: var(--text-main);
+}
+
+.action-btn-alt:hover {
+  background: var(--highlight-bg);
+}
+
+/* Сетка каталога */
+.catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+  padding: 2rem 0;
+}
+
+/* Карточки товаров */
+.product-card {
+  background: var(--surface-color);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--box-shadow);
+  transition: all 0.4s ease;
+  border: 1px solid var(--bg-light);
+}
+
+.product-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 50px rgba(139, 92, 246, 0.3);
+  border-color: var(--main-accent);
+}
+
+.product-image {
+  height: 180px;
+  background: var(--gradient-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.product-info {
+  padding: 1.5rem;
+}
+
+.product-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--text-main);
+}
+
+.product-cost {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--secondary-accent);
+  margin-bottom: 1rem;
+}
+
+/* Поля ввода */
+.text-field {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  border: 2px solid var(--bg-light);
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  background: var(--bg-medium);
+  color: var(--text-main);
+  transition: all 0.3s ease;
+  margin-bottom: 1rem;
+}
+
+.text-field:focus {
+  outline: none;
+  border-color: var(--main-accent);
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+}
+
+.text-field::placeholder {
+  color: var(--text-muted);
+}
+
+/* Формы */
+.auth-form, .admin-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  padding: 2rem;
+  background: var(--surface-color);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--bg-light);
+}
+
+/* Элементы корзины */
+.cart-items {
+  margin: 1.5rem 0;
+}
+
+.cart-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.25rem;
+  background: var(--surface-color);
+  border-radius: var(--border-radius);
+  margin-bottom: 0.75rem;
+  border: 1px solid var(--bg-light);
+  transition: all 0.3s ease;
+}
+
+.cart-row:hover {
+  border-color: var(--main-accent);
+  transform: translateX(5px);
+}
+
+.cart-summary {
+  font-size: 1.5rem;
+  padding: 1.5rem;
+  background: var(--gradient-primary);
+  border-radius: var(--border-radius);
+  text-align: center;
+  color: white;
+}
+
+/* Список товаров в админке */
+.inventory-list {
+  margin-top: 2rem;
+}
+
+.inventory-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem;
+  background: var(--surface-color);
+  border-radius: var(--border-radius);
+  margin-bottom: 0.75rem;
+  border: 1px solid var(--bg-light);
+  transition: all 0.3s ease;
+}
+
+.inventory-row:hover {
+  border-color: var(--secondary-accent);
+}
+
+.icon-button {
+  background: var(--bg-light);
+  color: var(--text-main);
+  border: none;
+  padding: 0.625rem;
+  border-radius: 0.5rem;
+  margin-left: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.icon-button:hover {
+  background: var(--main-accent);
+  transform: scale(1.1);
+}
+
+.icon-button.error-btn:hover {
+  background: var(--error-color);
+}
+
+/* Заголовки */
+h1, h2, h3 {
+  color: var(--text-main);
+  font-weight: 700;
+}
+
+h1 {
+  font-size: 2.5rem;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+h2 {
+  font-size: 1.75rem;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .menu-links {
+    gap: 1rem;
+  }
+  
+  .catalog-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .brand-logo {
+    font-size: 1.25rem;
+  }
+}

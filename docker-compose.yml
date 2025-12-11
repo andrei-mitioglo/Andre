@@ -1,0 +1,89 @@
+version: '3.8'
+
+# Конфигурация микросервисов ЦифроМаркет
+services:
+  # API Шлюз - точка входа для всех запросов
+  api_gateway:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: uvicorn gateway.main:app --host 0.0.0.0 --port 8000
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    depends_on:
+      - auth_service
+      - product_service
+      - cart_service
+      - order_service
+
+  # Сервис авторизации пользователей
+  auth_service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: uvicorn auth_service.main:app --host 0.0.0.0 --port 8001
+    volumes:
+      - .:/app
+
+  # Сервис каталога товаров
+  product_service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: uvicorn product_service.main:app --host 0.0.0.0 --port 8002
+    volumes:
+      - .:/app
+
+  # Сервис корзины покупок
+  cart_service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: uvicorn cart_service.main:app --host 0.0.0.0 --port 8003
+    volumes:
+      - .:/app
+
+  # Сервис обработки заказов
+  order_service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: uvicorn order_service.main:app --host 0.0.0.0 --port 8004
+    volumes:
+      - .:/app
+    depends_on:
+      - payment_service
+      - notification_service
+
+  # Платёжный сервис
+  payment_service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: uvicorn payment_service.main:app --host 0.0.0.0 --port 8005
+    volumes:
+      - .:/app
+
+  # Сервис уведомлений клиентов
+  notification_service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: uvicorn notification_service.main:app --host 0.0.0.0 --port 8006
+    volumes:
+      - .:/app
+
+  # Веб-интерфейс магазина
+  web_client:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true

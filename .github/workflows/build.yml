@@ -1,0 +1,30 @@
+name: Build and Run Docker
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-run:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Build and start services
+      run: |
+        docker compose up -d --build
+
+    - name: Check running containers
+      run: |
+        docker compose ps
+        docker compose ps --services | wc -l | grep 8  # Ensure 8 services are running (adjust number if needed)
+
+    - name: Stop containers
+      if: always()
+      run: docker compose down
