@@ -32,10 +32,8 @@ docker-compose up --build
 
 ### Workflows
 
-- **Microservices Tests** (`.github/workflows/test.yml`) - Полное тестирование всех микросервисов
-- **Run Unit Tests** (`.github/workflows/tests.yml`) - Unit тесты в Docker контейнерах
+- **Run Unit Tests** (`.github/workflows/tests.yml`) - Unit тесты всех микросервисов в Docker контейнерах
 - **Build and Run Docker** (`.github/workflows/build.yml`) - Сборка и проверка Docker образов
-- **CI/CD Pipeline** (`.github/workflows/ci.yml`) - Полный CI/CD pipeline
 
 Все тесты запускаются автоматически при push и pull request в ветки `main` и `master`.
 
